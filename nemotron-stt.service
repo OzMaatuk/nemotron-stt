@@ -1,0 +1,13 @@
+[Unit]
+Description=Nemotron STT background service
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/nemotron-stt/venv/bin/python %h/nemotron-stt/nemotron_type.py
+Restart=on-failure
+RestartSec=5
+PassEnvironment=WAYLAND_DISPLAY DISPLAY XDG_RUNTIME_DIR DBUS_SESSION_BUS_ADDRESS XDG_SESSION_TYPE YDOTOOL_SOCKET
+
+[Install]
+WantedBy=graphical-session.target

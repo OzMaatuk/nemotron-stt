@@ -1,0 +1,16 @@
+#!/bin/bash
+# Toggle Nemotron STT on/off
+# Assign to Ctrl+Space in GNOME Settings → Keyboard → Custom Shortcuts
+
+PID_FILE="$HOME/.cache/nemotron-stt.pid"
+
+if [ -f "$PID_FILE" ]; then
+    PID=$(cat "$PID_FILE")
+    if kill -0 "$PID" 2>/dev/null; then
+        kill -SIGUSR1 "$PID"
+        exit 0
+    fi
+fi
+
+# Fallback if PID file is stale
+pkill -SIGUSR1 -f nemotron_type.py
